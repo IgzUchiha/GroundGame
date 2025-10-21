@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     
     // Filter by language if specified
     if (language && language !== 'all') {
-      articles = articles.filter((article: any) => article.language === language);
+      articles = articles.filter((article: { language: string }) => article.language === language);
     }
 
     return NextResponse.json(articles);
@@ -69,7 +69,7 @@ export async function DELETE(request: Request) {
     
     // Filter out the article to delete
     const originalLength = data.articles.length;
-    data.articles = data.articles.filter((article: any) => article.id !== articleId);
+    data.articles = data.articles.filter((article: { id: string }) => article.id !== articleId);
     
     if (data.articles.length === originalLength) {
       return NextResponse.json({ error: 'Article not found' }, { status: 404 });

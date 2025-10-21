@@ -58,6 +58,7 @@ export default async function ArticlePage({ params }: { params: { id: string } }
         </div>
 
         {article.imageUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
           <img 
             src={article.imageUrl} 
             alt={article.title}

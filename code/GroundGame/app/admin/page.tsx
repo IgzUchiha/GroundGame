@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface Article {
   id: string;
@@ -13,7 +12,6 @@ interface Article {
 }
 
 export default function AdminPage() {
-  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
@@ -37,8 +35,8 @@ export default function AdminPage() {
       const response = await fetch('/api/articles');
       const data = await response.json();
       setArticles(data);
-    } catch (error) {
-      console.error('Error fetching articles:', error);
+    } catch (err) {
+      console.error('Error fetching articles:', err);
     } finally {
       setLoadingArticles(false);
     }
@@ -64,7 +62,7 @@ export default function AdminPage() {
       } else {
         setAuthError('Invalid password. Please try again.');
       }
-    } catch (error) {
+    } catch (err) {
       setAuthError('Authentication error. Please try again.');
     }
   };
@@ -86,7 +84,7 @@ export default function AdminPage() {
       } else {
         setMessage('Failed to delete article.');
       }
-    } catch (error) {
+    } catch (err) {
       setMessage('Error deleting article.');
     }
   };
@@ -130,7 +128,7 @@ export default function AdminPage() {
       } else {
         setMessage('Failed to publish article. Please try again.');
       }
-    } catch (error) {
+    } catch (err) {
       setMessage('Error publishing article. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -276,7 +274,7 @@ export default function AdminPage() {
                 rows={3}
                 className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-600"
                 required
-                placeholder="Example: 'It had been 5 years since I last sat in his classroom. We discuss everything that's happening and what it all means...'"
+                placeholder="Example: It had been 5 years since I last sat in his classroom. We discuss everything that&apos;s happening and what it all means..."
               />
               <p className="text-xs text-gray-400 mt-1">
                 Character count: {formData.excerpt.length} (recommended: 100-200)
@@ -286,7 +284,7 @@ export default function AdminPage() {
             {/* Full Content */}
             <div>
               <label className="block text-sm font-medium mb-2">
-                Full Article Content - THIS SHOWS WHEN READERS CLICK "READ MORE"
+                Full Article Content - THIS SHOWS WHEN READERS CLICK &quot;READ MORE&quot;
               </label>
               <p className="text-xs text-blue-400 mb-2">
                 📝 Write your complete article here. This is what readers see on the full article page.
@@ -405,7 +403,7 @@ export default function AdminPage() {
             <li>• The excerpt appears on the homepage - keep it under 200 characters</li>
             <li>• Full article content supports paragraphs and basic formatting</li>
             <li>• Articles are automatically published to the homepage</li>
-            <li>• Use "Manage Articles" to view or delete published articles</li>
+            <li>• Use &quot;Manage Articles&quot; to view or delete published articles</li>
           </ul>
         </div>
       </div>
