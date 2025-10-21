@@ -62,7 +62,7 @@ export default function AdminPage() {
       } else {
         setAuthError('Invalid password. Please try again.');
       }
-    } catch (err) {
+    } catch {
       setAuthError('Authentication error. Please try again.');
     }
   };
@@ -84,7 +84,7 @@ export default function AdminPage() {
       } else {
         setMessage('Failed to delete article.');
       }
-    } catch (err) {
+    } catch {
       setMessage('Error deleting article.');
     }
   };
@@ -128,7 +128,7 @@ export default function AdminPage() {
       } else {
         setMessage('Failed to publish article. Please try again.');
       }
-    } catch (err) {
+    } catch {
       setMessage('Error publishing article. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -398,7 +398,7 @@ export default function AdminPage() {
         <div className="mt-8 bg-gray-800 border border-blue-600 rounded-lg p-6">
           <h3 className="text-xl font-bold mb-3 text-blue-400">📝 Instructions for Journalists</h3>
           <ul className="space-y-2 text-gray-300">
-            <li>• Select the language you're writing in</li>
+            <li>• Select the language you&apos;re writing in</li>
             <li>• Write clear, compelling titles and excerpts</li>
             <li>• The excerpt appears on the homepage - keep it under 200 characters</li>
             <li>• Full article content supports paragraphs and basic formatting</li>
