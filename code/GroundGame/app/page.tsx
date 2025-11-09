@@ -112,7 +112,7 @@ export default function Home() {
                       </span>
                       {article.source === 'ground-game' && (
                         <span className="inline-block text-xs bg-blue-600 text-white px-2 py-1 rounded ml-2">
-                          Ground Game
+                          UnderGround TV
                         </span>
                       )}
                     </div>

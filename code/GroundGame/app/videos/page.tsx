@@ -5,9 +5,9 @@ export default function VideosPage() {
     // YOUR FEATURED VIDEO
     {
       id: 'kOEI5kF9Gzs',
-      title: 'Ground Game Featured Report',
+      title: 'UnderGround TV Featured Report',
       description: 'Our featured investigative report',
-      source: 'Ground Game'
+      source: 'UnderGround TV'
     },
     
     // THE GRAYZONE VIDEOS
@@ -62,7 +62,7 @@ export default function VideosPage() {
         
         <div className="mb-12">
           <p className="text-xl text-gray-300 mb-4">
-            Watch our latest investigative reports from Ground Game, The Grayzone, and The Jimmy Dore Show.
+            Watch our latest investigative reports from UnderGround TV, The Grayzone, and The Jimmy Dore Show.
           </p>
           <div className="flex flex-wrap gap-4">
             <a
@@ -71,7 +71,7 @@ export default function VideosPage() {
               rel="noopener noreferrer"
               className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
             >
-              Subscribe to Ground Game
+              Subscribe to UnderGround TV
             </a>
             <a
               href="https://www.youtube.com/@thegrayzone7996"
@@ -108,7 +108,7 @@ export default function VideosPage() {
                 {/* Source Badge */}
                 <div className="mb-2">
                   <span className={`inline-block text-xs px-3 py-1 rounded font-semibold ${
-                    video.source === 'Ground Game' ? 'bg-red-600 text-white' :
+                    video.source === 'UnderGround TV' ? 'bg-red-600 text-white' :
                     video.source === 'The Grayzone' ? 'bg-gray-600 text-white' :
                     'bg-blue-600 text-white'
                   }`}>

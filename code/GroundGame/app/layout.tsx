@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ground Game - Independent News & Alternative Media",
-  description: "Ground Game delivers independent journalism, investigative reports, and uncensored news coverage. Support alternative media.",
+  title: "UnderGround TV - Independent News & Alternative Media",
+  description: "UnderGround TV delivers independent journalism, investigative reports, and uncensored news coverage. Support alternative media.",
 };
 
 export default function RootLayout({

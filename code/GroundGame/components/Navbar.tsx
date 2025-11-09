@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { FaTwitter, FaInstagram, FaYoutube, FaTelegram } from 'react-icons/fa';
 import { Globe } from 'lucide-react';
@@ -23,13 +24,23 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <h1 className="text-2xl font-bold text-red-600">GROUND GAME</h1>
+            <Image 
+              src="/underground-tv-logo.jpg" 
+              alt="UnderGround TV" 
+              width={702} 
+              height={678}
+              className="h-12 w-auto"
+              priority
+            />
           </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/videos" className="hover:text-red-500 transition-colors">
               Videos
+            </Link>
+            <Link href="/shop" className="hover:text-red-500 transition-colors">
+              Shop
             </Link>
             <Link href="/donations" className="hover:text-red-500 transition-colors">
               Donations
@@ -133,6 +144,13 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Videos
+              </Link>
+              <Link 
+                href="/shop" 
+                className="block px-3 py-2 rounded-md hover:bg-gray-900 transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Shop
               </Link>
               <Link 
                 href="/donations" 

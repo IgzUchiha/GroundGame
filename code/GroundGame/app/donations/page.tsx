@@ -25,12 +25,12 @@ export default function DonationsPage() {
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold mb-8 text-red-600 text-center">SUPPORT GROUND GAME</h1>
+        <h1 className="text-4xl font-bold mb-8 text-red-600 text-center">SUPPORT UNDERGROUND TV</h1>
         
         <div className="bg-gray-800 rounded-lg p-8 mb-8">
           <h2 className="text-2xl font-bold mb-4">Why Donate?</h2>
           <p className="text-gray-300 mb-4">
-            Ground Game is committed to independent journalism that exposes the truth without corporate or government influence. 
+            UnderGround TV is committed to independent journalism that exposes the truth without corporate or government influence. 
             Your donations directly support our investigative reporting, video production, and on-the-ground coverage.
           </p>
           <p className="text-gray-300">
@@ -107,7 +107,7 @@ export default function DonationsPage() {
         <div className="mt-8 bg-gray-800 border border-yellow-600 rounded-lg p-6">
           <h4 className="text-xl font-bold mb-2 text-yellow-500">⚠️ Security Notice</h4>
           <p className="text-gray-300 text-sm">
-            Always verify wallet addresses before sending funds. Ground Game will never contact you asking for donations 
+            Always verify wallet addresses before sending funds. UnderGround TV will never contact you asking for donations 
             through direct messages or email. Only use the addresses listed on this official website.
           </p>
         </div>
