@@ -2,16 +2,14 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import { ethers } from 'ethers';
-
-const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 // Declare MetaMask ethereum type
 declare global {
   interface Window {
-    ethereum?: any;
+    ethereum?: {
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+    };
   }
 }
 
@@ -69,9 +67,10 @@ export default function ShopPage() {
         console.log('Wallet connected:', accounts[0]);
         alert(`Wallet connected!\n\n${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Connection error:', error);
-      if (error.code === 4001) {
+      const err = error as { code?: number };
+      if (err.code === 4001) {
         alert('Connection rejected. Please approve the connection in MetaMask.');
       } else {
         alert('Failed to connect wallet. Please try again.');
@@ -165,11 +164,11 @@ export default function ShopPage() {
         console.log('Step 5: Waiting for confirmation...');
         const receipt = await tx.wait();
         console.log('✅ Transaction confirmed!', receipt);
-      } catch (requestError: any) {
+      } catch (requestError) {
         console.error('❌ Error during request:', requestError);
         throw requestError;
       }
-
+      
       // Send order confirmation with shipping info
       const response = await fetch('/api/order-confirmation', {
         method: 'POST',
@@ -188,19 +187,20 @@ export default function ShopPage() {
       if (response.ok) {
         window.location.href = `/shop/success?tx=${tx.hash}`;
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('MetaMask error:', error);
       
+      const err = error as { code?: number; message?: string };
       let errorMessage = 'Payment failed. ';
       
-      if (error.code === 4001) {
+      if (err.code === 4001) {
         errorMessage = 'Transaction rejected. You declined the transaction in MetaMask.';
-      } else if (error.code === -32002) {
+      } else if (err.code === -32002) {
         errorMessage = 'MetaMask is already processing a request. Please check MetaMask.';
-      } else if (error.message?.includes('insufficient funds')) {
+      } else if (err.message?.includes('insufficient funds')) {
         errorMessage = 'Insufficient funds in your wallet to complete this transaction.';
       } else {
-        errorMessage += error.message || 'Please try again.';
+        errorMessage += err.message || 'Please try again.';
       }
       
       alert(errorMessage);

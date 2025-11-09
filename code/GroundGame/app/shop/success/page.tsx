@@ -9,8 +9,6 @@ export default function SuccessPage() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const txHash = searchParams.get('tx');
-  const [loading, setLoading] = useState(true);
-  const [orderSent, setOrderSent] = useState(false);
 
   useEffect(() => {
     if (sessionId) {
@@ -32,21 +30,17 @@ export default function SuccessPage() {
           if (!response.ok) {
             console.error('Order confirmation failed with status:', response.status);
             console.error('Error details:', data);
-            alert('Failed to send order confirmation email. Please contact support with your order details.');
           } else {
             console.log('✅ Order confirmation sent successfully!');
           }
-          setOrderSent(true);
-          setLoading(false);
         })
         .catch((error) => {
           console.error('Error sending confirmation:', error);
-          setLoading(false);
         });
-    } else {
-      setLoading(false);
     }
   }, [sessionId]);
+
+  // Empty dependency array is intentional - we only want this to run once on mount
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12">
@@ -69,7 +63,7 @@ export default function SuccessPage() {
                   <p>✅ Your payment has been processed successfully</p>
                   <p>✅ A confirmation email has been sent to your inbox</p>
                   <p>📦 Your UnderGround TV hoodie will ship within 3-5 business days</p>
-                  <p>📧 You'll receive a tracking number once your order ships</p>
+                  <p>📧 You&apos;ll receive a tracking number once your order ships</p>
                 </div>
               </>
             ) : txHash ? (
@@ -78,7 +72,7 @@ export default function SuccessPage() {
                   <p>✅ Your crypto payment has been confirmed</p>
                   <p>✅ A confirmation email has been sent with your shipping details</p>
                   <p>📦 Your UnderGround TV hoodie will ship within 3-5 business days</p>
-                  <p>📧 You'll receive a tracking number once your order ships</p>
+                  <p>📧 You&apos;ll receive a tracking number once your order ships</p>
                 </div>
                 <div className="bg-gray-800 p-4 rounded">
                   <p className="text-sm text-gray-400 mb-2">Transaction Hash:</p>

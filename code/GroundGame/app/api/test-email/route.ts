@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     console.log('Testing email with Resend API Key:', process.env.RESEND_API_KEY?.slice(0, 10) + '...');
     console.log('Admin Email:', process.env.ADMIN_EMAIL);
@@ -23,13 +23,14 @@ export async function GET(req: NextRequest) {
       message: 'Test email sent!',
       result 
     });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
     console.error('Email test error:', error);
     return NextResponse.json(
       { 
         success: false,
-        error: error.message,
-        details: error
+        error: errorMsg,
+        details: String(error)
       },
       { status: 500 }
     );

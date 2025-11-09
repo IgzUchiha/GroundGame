@@ -13,12 +13,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     console.log('Request body:', JSON.stringify(body));
     
-    const { sessionId, size, paymentMethod, transactionHash, amount, shippingInfo } = body;
+    const { sessionId, size, transactionHash, amount, shippingInfo } = body;
 
     let customerEmail = '';
     let customerName = '';
     let customerPhone = '';
-    let shippingAddress: any = null;
+    let shippingAddress: Record<string, string> | null = null;
     let orderDetails = '';
 
     // If Stripe payment, get session details
@@ -70,9 +70,10 @@ export async function POST(req: NextRequest) {
           
           <p style="color: #666;">Ship within 3-5 business days and send tracking info to customer.</p>
         `;
-      } catch (stripeError: any) {
+      } catch (stripeError) {
+        const errorMsg = stripeError instanceof Error ? stripeError.message : 'Unknown error';
         console.error('❌ Stripe error:', stripeError);
-        throw new Error(`Failed to retrieve Stripe session: ${stripeError.message}`);
+        throw new Error(`Failed to retrieve Stripe session: ${errorMsg}`);
       }
     } else if (shippingInfo) {
       // Crypto payment with shipping info
@@ -125,9 +126,10 @@ export async function POST(req: NextRequest) {
         html: orderDetails,
       });
       console.log('✅ Admin notification sent successfully:', emailResult);
-    } catch (adminError: any) {
+    } catch (adminError) {
+      const errorMsg = adminError instanceof Error ? adminError.message : 'Unknown error';
       console.error('❌ Failed to send admin notification:', adminError);
-      console.error('Admin error details:', adminError.message);
+      console.error('Admin error details:', errorMsg);
       // Don't throw - still continue to try sending customer email
     }
 
@@ -166,14 +168,18 @@ export async function POST(req: NextRequest) {
 
     console.log('✅ Order confirmation completed successfully');
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+    const errorDetails = error instanceof Error ? error.toString() : String(error);
     console.error('❌ Order confirmation error:', error);
-    console.error('Error stack:', error.stack);
+    if (error instanceof Error && error.stack) {
+      console.error('Error stack:', error.stack);
+    }
     return NextResponse.json(
       { 
         success: false,
-        error: error.message,
-        details: error.toString()
+        error: errorMsg,
+        details: errorDetails
       },
       { status: 500 }
     );

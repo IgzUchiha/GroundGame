@@ -29,10 +29,11 @@ export async function GET(req: NextRequest) {
       ok: response.ok,
       data: data
     });
-  } catch (error: any) {
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({
-      error: error.message,
-      details: error.toString()
+      error: errorMsg,
+      details: String(error)
     }, { status: 500 });
   }
 }
